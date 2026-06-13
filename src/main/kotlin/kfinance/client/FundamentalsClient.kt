@@ -6,33 +6,40 @@ import kfinance.net.KFinanceHttpClient
 import kfinance.session.YahooSession
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.*
 import java.net.URI
 import java.net.http.HttpRequest
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 internal class FundamentalsClient(
     private val http: KFinanceHttpClient,
     private val session: YahooSession
 ) {
     companion object {
-        private const val BASE_URL = "https://query1.finance.yahoo.com/v10/finance/quoteSummary"
+        private const val BASE_URL = "https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries"
         private const val USER_AGENT =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-        private val json = Json { ignoreUnknownKeys = true; isLenient = true }
+
+        private val FIELD_KEYS = listOf(
+            "TotalRevenue", "GrossProfit", "OperatingIncome", "NetIncome",
+            "OperatingCashFlow", "CapitalExpenditure", "ChangesInCash",
+            "TotalAssets", "TotalLiabilitiesNetMinorityInterest", "TotalEquityGrossMinorityInterest", "TangibleBookValue",
+        )
+
+        private val json = Json { ignoreUnknownKeys = true }
+        private const val PERIOD1 = 1483228800L
     }
 
     suspend fun fetch(symbol: String, period: Period): Financials = withContext(Dispatchers.IO) {
         session.ensureValid()
 
-        val modules = if (period == Period.ANNUAL) {
-            "incomeStatementHistory,cashflowStatementHistory,balanceSheetHistory"
-        } else {
-            "incomeStatementHistoryQuarterly,cashflowStatementHistoryQuarterly,balanceSheetHistoryQuarterly"
-        }
-
-        val url = "$BASE_URL/$symbol?modules=$modules&crumb=${session.crumb()}"
+        val prefix = if (period == Period.ANNUAL) "annual" else "quarterly"
+        val typeParam = FIELD_KEYS.joinToString(",") { "$prefix$it" }
+        val period2 = Instant.now().epochSecond
+        val url = "$BASE_URL/$symbol?symbol=$symbol&type=$typeParam&period1=$PERIOD1&period2=$period2"
 
         val request = HttpRequest.newBuilder(URI.create(url))
             .header("Cookie", session.cookie())
@@ -49,110 +56,75 @@ internal class FundamentalsClient(
             )
         }
 
-        response.body().toFinancials(symbol, period)
+        response.body().toFinancials(symbol, period, prefix)
     }
 
-    @Serializable
-    private data class QuoteSummaryResponseWrapper(val quoteSummary: QuoteSummaryResponse)
-
-    @Serializable
-    private data class QuoteSummaryResponse(val result: List<QuoteSummaryResult>? = null, val error: String? = null)
-
-    @Serializable
-    private data class QuoteSummaryResult(
-        val incomeStatementHistory: ModuleWrapper? = null,
-        val cashflowStatementHistory: ModuleWrapper? = null,
-        val balanceSheetHistory: ModuleWrapper? = null,
-        val incomeStatementHistoryQuarterly: ModuleWrapper? = null,
-        val cashflowStatementHistoryQuarterly: ModuleWrapper? = null,
-        val balanceSheetHistoryQuarterly: ModuleWrapper? = null
-    )
-
-    @Serializable
-    private data class ModuleWrapper(
-        val incomeStatementHistory: List<JsonObject>? = null,
-        val cashflowStatements: List<JsonObject>? = null,
-        val balanceSheetStatements: List<JsonObject>? = null
-    )
-
-    private fun String.toFinancials(symbol: String, period: Period): Financials {
+    private fun String.toFinancials(symbol: String, period: Period, prefix: String): Financials {
         try {
-            val wrapper = json.decodeFromString<QuoteSummaryResponseWrapper>(this)
-            if (wrapper.quoteSummary.error != null) {
-                throw KFinanceException.ParseException("Yahoo returned an error: ${wrapper.quoteSummary.error}")
-            }
-            val result =
-                wrapper.quoteSummary.result?.firstOrNull() ?: return Financials(symbol, period, null, null, null)
+            val root = json.parseToJsonElement(this).jsonObject
+            val result = root["timeseries"]?.jsonObject
+                ?.get("result")?.jsonArray ?: return Financials(symbol, period, null, null, null)
 
-            val incModule =
-                if (period == Period.ANNUAL) result.incomeStatementHistory else result.incomeStatementHistoryQuarterly
-            val cfModule =
-                if (period == Period.ANNUAL) result.cashflowStatementHistory else result.cashflowStatementHistoryQuarterly
-            val bsModule =
-                if (period == Period.ANNUAL) result.balanceSheetHistory else result.balanceSheetHistoryQuarterly
+            val fieldData = mutableMapOf<String, Map<String, Double>>()
+            for (item in result) {
+                val obj = item.jsonObject
+                val dataKey = obj.keys.firstOrNull { it != "meta" && it != "timestamp" } ?: continue
+                val dataArray = obj[dataKey]?.jsonArray ?: continue
 
-            val incomeStatement = incModule?.incomeStatementHistory?.let { list ->
-                IncomeStatement(list.mapNotNull { parseIncomeEntry(it) })
+                val byDate = mutableMapOf<String, Double>()
+                for (elem in dataArray) {
+                    val entry = elem.jsonObject
+                    val asOfDate = entry["asOfDate"]?.jsonPrimitive?.contentOrNull ?: continue
+                    val raw = entry["reportedValue"]?.jsonObject
+                        ?.get("raw")?.jsonPrimitive?.doubleOrNull ?: continue
+                    byDate[asOfDate] = raw
+                }
+                if (byDate.isNotEmpty()) fieldData[dataKey] = byDate
             }
-            val cashFlow = cfModule?.cashflowStatements?.let { list ->
-                CashFlow(list.mapNotNull { parseCashFlowEntry(it) })
+
+            val allDates = fieldData.values.flatMap { it.keys }.distinct().sorted().reversed()
+
+            fun field(key: String, date: String) = fieldData["$prefix$key"]?.get(date)
+
+            val incomeEntries = allDates.mapNotNull { date ->
+                val endDate = LocalDate.parse(date).atStartOfDay(ZoneOffset.UTC).toEpochSecond()
+                IncomeEntry(
+                    endDate = endDate,
+                    totalRevenue = field("TotalRevenue", date),
+                    grossProfit = field("GrossProfit", date),
+                    operatingIncome = field("OperatingIncome", date),
+                    netIncome = field("NetIncome", date),
+                )
             }
-            val balanceSheet = bsModule?.balanceSheetStatements?.let { list ->
-                BalanceSheet(list.mapNotNull { parseBalanceSheetEntry(it) })
+            val cashFlowEntries = allDates.mapNotNull { date ->
+                val endDate = LocalDate.parse(date).atStartOfDay(ZoneOffset.UTC).toEpochSecond()
+                CashFlowEntry(
+                    endDate = endDate,
+                    operatingCashFlow = field("OperatingCashFlow", date),
+                    capitalExpenditures = field("CapitalExpenditure", date),
+                    netChangeInCash = field("ChangesInCash", date),
+                )
+            }
+            val balanceSheetEntries = allDates.mapNotNull { date ->
+                val endDate = LocalDate.parse(date).atStartOfDay(ZoneOffset.UTC).toEpochSecond()
+                BalanceSheetEntry(
+                    endDate = endDate,
+                    totalAssets = field("TotalAssets", date),
+                    totalLiabilities = field("TotalLiabilitiesNetMinorityInterest", date),
+                    totalEquity = field("TotalEquityGrossMinorityInterest", date),
+                    bookValuePerShare = field("TangibleBookValue", date),
+                )
             }
 
             return Financials(
                 symbol = symbol,
                 period = period,
-                incomeStatement = incomeStatement,
-                cashFlow = cashFlow,
-                balanceSheet = balanceSheet
+                incomeStatement = if (incomeEntries.isNotEmpty()) IncomeStatement(incomeEntries) else null,
+                cashFlow = if (cashFlowEntries.isNotEmpty()) CashFlow(cashFlowEntries) else null,
+                balanceSheet = if (balanceSheetEntries.isNotEmpty()) BalanceSheet(balanceSheetEntries) else null,
             )
         } catch (e: SerializationException) {
             throw KFinanceException.ParseException("Failed to parse Fundamentals JSON", e)
         }
-    }
-
-    private fun parseIncomeEntry(obj: JsonObject): IncomeEntry? {
-        val endDate = extractRawLong(obj["endDate"]) ?: return null
-        return IncomeEntry(
-            endDate = endDate,
-            totalRevenue = extractRawDouble(obj["totalRevenue"]),
-            grossProfit = extractRawDouble(obj["grossProfit"]),
-            operatingIncome = extractRawDouble(obj["operatingIncome"]),
-            netIncome = extractRawDouble(obj["netIncome"])
-        )
-    }
-
-    private fun parseCashFlowEntry(obj: JsonObject): CashFlowEntry? {
-        val endDate = extractRawLong(obj["endDate"]) ?: return null
-        return CashFlowEntry(
-            endDate = endDate,
-            operatingCashFlow = extractRawDouble(obj["totalCashFromOperatingActivities"])
-                ?: extractRawDouble(obj["operatingCashflow"]),
-            capitalExpenditures = extractRawDouble(obj["capitalExpenditures"]),
-            netChangeInCash = extractRawDouble(obj["changeInCash"])
-        )
-    }
-
-    private fun parseBalanceSheetEntry(obj: JsonObject): BalanceSheetEntry? {
-        val endDate = extractRawLong(obj["endDate"]) ?: return null
-        return BalanceSheetEntry(
-            endDate = endDate,
-            totalAssets = extractRawDouble(obj["totalAssets"]),
-            totalLiabilities = extractRawDouble(obj["totalLiab"]),
-            totalEquity = extractRawDouble(obj["totalStockholderEquity"]),
-            bookValuePerShare = null
-        )
-    }
-
-    private fun extractRawLong(element: JsonElement?): Long? {
-        if (element == null || element !is JsonObject) return null
-        return element["raw"]?.jsonPrimitive?.longOrNull
-    }
-
-    private fun extractRawDouble(element: JsonElement?): Double? {
-        if (element == null || element !is JsonObject) return null
-        return element["raw"]?.jsonPrimitive?.doubleOrNull
     }
 }

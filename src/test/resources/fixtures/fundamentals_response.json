@@ -1,325 +1,708 @@
 {
-  "quoteSummary": {
+  "timeseries": {
     "result": [
       {
-        "cashflowStatementHistory": {
-          "cashflowStatements": [
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1767139200,
-                "fmt": "2025-12-31"
-              },
-              "netIncome": {
-                "raw": 114265000,
-                "fmt": "114.27M",
-                "longFmt": "114,265,000"
-              }
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1577750400,
-                "fmt": "2019-12-31"
-              },
-              "netIncome": {
-                "raw": 24797000,
-                "fmt": "24.8M",
-                "longFmt": "24,797,000"
-              }
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1546214400,
-                "fmt": "2018-12-31"
-              },
-              "netIncome": {
-                "raw": 25236000,
-                "fmt": "25.24M",
-                "longFmt": "25,236,000"
-              }
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1514678400,
-                "fmt": "2017-12-31"
-              },
-              "netIncome": {
-                "raw": 19603000,
-                "fmt": "19.6M",
-                "longFmt": "19,603,000"
-              }
-            }
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
           ],
-          "maxAge": 86400
+          "type": [
+            "annualChangesInCash"
+          ]
         },
-        "balanceSheetHistory": {
-          "balanceSheetStatements": [
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1767139200,
-                "fmt": "2025-12-31"
-              }
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1577750400,
-                "fmt": "2019-12-31"
-              }
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1546214400,
-                "fmt": "2018-12-31"
-              }
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1514678400,
-                "fmt": "2017-12-31"
-              }
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualChangesInCash": [
+          {
+            "dataId": 26027,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": -1.495972E9,
+              "fmt": "-1.50B"
             }
+          },
+          {
+            "dataId": 26027,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.27259E8,
+              "fmt": "627.26M"
+            }
+          },
+          {
+            "dataId": 26027,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.85276E8,
+              "fmt": "685.28M"
+            }
+          },
+          {
+            "dataId": 26027,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 5.17756E8,
+              "fmt": "517.76M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
           ],
-          "maxAge": 86400
+          "type": [
+            "annualTotalLiabilitiesNetMinorityInterest"
+          ]
         },
-        "incomeStatementHistory": {
-          "incomeStatementHistory": [
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1767139200,
-                "fmt": "2025-12-31"
-              },
-              "totalRevenue": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "costOfRevenue": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "grossProfit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "researchDevelopment": {},
-              "sellingGeneralAdministrative": {},
-              "nonRecurring": {},
-              "otherOperatingExpenses": {},
-              "totalOperatingExpenses": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "operatingIncome": {},
-              "totalOtherIncomeExpenseNet": {},
-              "ebit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "interestExpense": {},
-              "incomeBeforeTax": {},
-              "incomeTaxExpense": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "minorityInterest": {},
-              "netIncomeFromContinuingOps": {},
-              "discontinuedOperations": {},
-              "extraordinaryItems": {},
-              "effectOfAccountingCharges": {},
-              "otherItems": {},
-              "netIncome": {
-                "raw": 114265000,
-                "fmt": "114.27M",
-                "longFmt": "114,265,000"
-              },
-              "netIncomeApplicableToCommonShares": {}
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1577750400,
-                "fmt": "2019-12-31"
-              },
-              "totalRevenue": {
-                "raw": 47388000,
-                "fmt": "47.39M",
-                "longFmt": "47,388,000"
-              },
-              "costOfRevenue": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "grossProfit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "researchDevelopment": {},
-              "sellingGeneralAdministrative": {},
-              "nonRecurring": {},
-              "otherOperatingExpenses": {},
-              "totalOperatingExpenses": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "operatingIncome": {},
-              "totalOtherIncomeExpenseNet": {},
-              "ebit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "interestExpense": {},
-              "incomeBeforeTax": {},
-              "incomeTaxExpense": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "minorityInterest": {},
-              "netIncomeFromContinuingOps": {},
-              "discontinuedOperations": {},
-              "extraordinaryItems": {},
-              "effectOfAccountingCharges": {},
-              "otherItems": {},
-              "netIncome": {
-                "raw": 24797000,
-                "fmt": "24.8M",
-                "longFmt": "24,797,000"
-              },
-              "netIncomeApplicableToCommonShares": {}
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1546214400,
-                "fmt": "2018-12-31"
-              },
-              "totalRevenue": {
-                "raw": 38151000,
-                "fmt": "38.15M",
-                "longFmt": "38,151,000"
-              },
-              "costOfRevenue": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "grossProfit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "researchDevelopment": {},
-              "sellingGeneralAdministrative": {},
-              "nonRecurring": {},
-              "otherOperatingExpenses": {},
-              "totalOperatingExpenses": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "operatingIncome": {},
-              "totalOtherIncomeExpenseNet": {},
-              "ebit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "interestExpense": {},
-              "incomeBeforeTax": {},
-              "incomeTaxExpense": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "minorityInterest": {},
-              "netIncomeFromContinuingOps": {},
-              "discontinuedOperations": {},
-              "extraordinaryItems": {},
-              "effectOfAccountingCharges": {},
-              "otherItems": {},
-              "netIncome": {
-                "raw": 25236000,
-                "fmt": "25.24M",
-                "longFmt": "25,236,000"
-              },
-              "netIncomeApplicableToCommonShares": {}
-            },
-            {
-              "maxAge": 1,
-              "endDate": {
-                "raw": 1514678400,
-                "fmt": "2017-12-31"
-              },
-              "totalRevenue": {
-                "raw": 35503000,
-                "fmt": "35.5M",
-                "longFmt": "35,503,000"
-              },
-              "costOfRevenue": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "grossProfit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "researchDevelopment": {},
-              "sellingGeneralAdministrative": {},
-              "nonRecurring": {},
-              "otherOperatingExpenses": {},
-              "totalOperatingExpenses": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "operatingIncome": {},
-              "totalOtherIncomeExpenseNet": {},
-              "ebit": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "interestExpense": {},
-              "incomeBeforeTax": {},
-              "incomeTaxExpense": {
-                "raw": 0,
-                "fmt": null,
-                "longFmt": "0"
-              },
-              "minorityInterest": {},
-              "netIncomeFromContinuingOps": {},
-              "discontinuedOperations": {},
-              "extraordinaryItems": {},
-              "effectOfAccountingCharges": {},
-              "otherItems": {},
-              "netIncome": {
-                "raw": 19603000,
-                "fmt": "19.6M",
-                "longFmt": "19,603,000"
-              },
-              "netIncomeApplicableToCommonShares": {}
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualTotalLiabilitiesNetMinorityInterest": [
+          {
+            "dataId": 23259,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 5.714153E9,
+              "fmt": "5.71B"
             }
+          },
+          {
+            "dataId": 23259,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.536667E9,
+              "fmt": "6.54B"
+            }
+          },
+          {
+            "dataId": 23259,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 8.057651E9,
+              "fmt": "8.06B"
+            }
+          },
+          {
+            "dataId": 23259,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 9.465781E9,
+              "fmt": "9.47B"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
           ],
-          "maxAge": 86400
+          "type": [
+            "annualOperatingCashFlow"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualOperatingCashFlow": [
+          {
+            "dataId": 26014,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": -1.290187E9,
+              "fmt": "-1.29B"
+            }
+          },
+          {
+            "dataId": 26014,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.6232E8,
+              "fmt": "662.32M"
+            }
+          },
+          {
+            "dataId": 26014,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 7.3418E8,
+              "fmt": "734.18M"
+            }
+          },
+          {
+            "dataId": 26014,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 4.74448E8,
+              "fmt": "474.45M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualTotalEquityGrossMinorityInterest"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualTotalEquityGrossMinorityInterest": [
+          {
+            "dataId": 23261,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 4.20849E8,
+              "fmt": "420.85M"
+            }
+          },
+          {
+            "dataId": 23261,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 5.56366E8,
+              "fmt": "556.37M"
+            }
+          },
+          {
+            "dataId": 23261,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.7866E8,
+              "fmt": "678.66M"
+            }
+          },
+          {
+            "dataId": 23261,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 7.67181E8,
+              "fmt": "767.18M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualTotalAssets"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualTotalAssets": [
+          {
+            "dataId": 23220,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.135002E9,
+              "fmt": "6.14B"
+            },
+            "businessSegmentData": [
+              {
+                "dataValue": 2.3681E7,
+                "segmentType": "Business",
+                "segmentName": "Asset management",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 3.201314E9,
+                "segmentType": "Business",
+                "segmentName": "Corporate banking",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 0.0,
+                "segmentType": "Business",
+                "segmentName": "Financial intermediaries",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 9.1711E7,
+                "segmentType": "Business",
+                "segmentName": "Hire-purchase and consumer finance",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.9892E7,
+                "segmentType": "Business",
+                "segmentName": "Insurance",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 4.1437E7,
+                "segmentType": "Business",
+                "segmentName": "LHV Bank",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": -9.3074E7,
+                "segmentType": "Business",
+                "segmentName": "Other activities",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.840041E9,
+                "segmentType": "Business",
+                "segmentName": "Retail banking",
+                "isPrimarySegment": 0
+              }
+            ]
+          },
+          {
+            "dataId": 23220,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 7.093033E9,
+              "fmt": "7.09B"
+            },
+            "businessSegmentData": [
+              {
+                "dataValue": 2.3262E7,
+                "segmentType": "Business",
+                "segmentName": "Asset management",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 3.726731E9,
+                "segmentType": "Business",
+                "segmentName": "Corporate banking",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": -6.9514E8,
+                "segmentType": "Business",
+                "segmentName": "Eliminations",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 0.0,
+                "segmentType": "Business",
+                "segmentName": "Financial intermediaries",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 9.3549E7,
+                "segmentType": "Business",
+                "segmentName": "Hire-purchase and consumer finance",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 5.5569E7,
+                "segmentType": "Business",
+                "segmentName": "Insurance",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 3.69316E8,
+                "segmentType": "Business",
+                "segmentName": "LHV Bank",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.3012E7,
+                "segmentType": "Business",
+                "segmentName": "LHV Kindlustus",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 6.754644E9,
+                "segmentType": "Business",
+                "segmentName": "LHV Pank",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.3262E7,
+                "segmentType": "Business",
+                "segmentName": "LHV Varahaldus",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 6.17939E8,
+                "segmentType": "Business",
+                "segmentName": "Other activities",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.742899E9,
+                "segmentType": "Business",
+                "segmentName": "Retail banking",
+                "isPrimarySegment": 0
+              }
+            ]
+          },
+          {
+            "dataId": 23220,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 8.736311E9,
+              "fmt": "8.74B"
+            },
+            "businessSegmentData": [
+              {
+                "dataValue": -8.30194E8,
+                "segmentType": "Business",
+                "segmentName": "Eliminations",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 7.989E8,
+                "segmentType": "Business",
+                "segmentName": "LHV Bank",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.7411E7,
+                "segmentType": "Business",
+                "segmentName": "LHV Kindlustus",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 7.936527E9,
+                "segmentType": "Business",
+                "segmentName": "LHV Pank",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 2.0771E7,
+                "segmentType": "Business",
+                "segmentName": "LHV Varahaldus",
+                "isPrimarySegment": 0
+              },
+              {
+                "dataValue": 7.82896E8,
+                "segmentType": "Business",
+                "segmentName": "Other activities",
+                "isPrimarySegment": 0
+              }
+            ]
+          },
+          {
+            "dataId": 23220,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 1.0232962E10,
+              "fmt": "10.23B"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualNetIncome"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualNetIncome": [
+          {
+            "dataId": 20091,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 5.9808E7,
+              "fmt": "59.81M"
+            }
+          },
+          {
+            "dataId": 20091,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 1.39602E8,
+              "fmt": "139.60M"
+            }
+          },
+          {
+            "dataId": 20091,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 1.48968E8,
+              "fmt": "148.97M"
+            }
+          },
+          {
+            "dataId": 20091,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 1.14265E8,
+              "fmt": "114.27M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualCapitalExpenditure"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualCapitalExpenditure": [
+          {
+            "dataId": 26005,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": -1.1299E7,
+              "fmt": "-11.30M"
+            }
+          },
+          {
+            "dataId": 26005,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": -1.6901E7,
+              "fmt": "-16.90M"
+            }
+          },
+          {
+            "dataId": 26005,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": -7252000.0,
+              "fmt": "-7.25M"
+            }
+          },
+          {
+            "dataId": 26005,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": -2699000.0,
+              "fmt": "-2.70M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualTotalRevenue"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualTotalRevenue": [
+          {
+            "dataId": 20100,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 1.68589E8,
+              "fmt": "168.59M"
+            }
+          },
+          {
+            "dataId": 20100,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 3.05535E8,
+              "fmt": "305.54M"
+            }
+          },
+          {
+            "dataId": 20100,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 3.38309E8,
+              "fmt": "338.31M"
+            }
+          },
+          {
+            "dataId": 20100,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 3.04859E8,
+              "fmt": "304.86M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualTangibleBookValue"
+          ]
+        },
+        "timestamp": [
+          1672444800,
+          1703980800,
+          1735603200,
+          1767139200
+        ],
+        "annualTangibleBookValue": [
+          {
+            "dataId": 23383,
+            "asOfDate": "2022-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 3.88339E8,
+              "fmt": "388.34M"
+            }
+          },
+          {
+            "dataId": 23383,
+            "asOfDate": "2023-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 5.25437E8,
+              "fmt": "525.44M"
+            }
+          },
+          {
+            "dataId": 23383,
+            "asOfDate": "2024-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 6.46895E8,
+              "fmt": "646.89M"
+            }
+          },
+          {
+            "dataId": 23383,
+            "asOfDate": "2025-12-31",
+            "periodType": "12M",
+            "currencyCode": "EUR",
+            "reportedValue": {
+              "raw": 7.38195E8,
+              "fmt": "738.20M"
+            }
+          }
+        ]
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualOperatingIncome"
+          ]
+        }
+      },
+      {
+        "meta": {
+          "symbol": [
+            "LHV1T.TL"
+          ],
+          "type": [
+            "annualGrossProfit"
+          ]
         }
       }
     ],

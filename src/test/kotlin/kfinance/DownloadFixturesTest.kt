@@ -45,14 +45,20 @@ class DownloadFixturesTest : FunSpec({
         File(fixturesDir, "quote_response.json").writeText(quoteRes.body())
         println("Wrote quote_response.json")
 
-        val fundiesUrl =
-            "https://query1.finance.yahoo.com/v10/finance/quoteSummary/LHV1T.TL?modules=incomeStatementHistory,cashflowStatementHistory,balanceSheetHistory&crumb=$crumb"
+        val fields = listOf(
+            "annualTotalRevenue", "annualGrossProfit", "annualOperatingIncome", "annualNetIncome",
+            "annualOperatingCashFlow", "annualCapitalExpenditure", "annualChangesInCash",
+            "annualTotalAssets", "annualTotalLiabilitiesNetMinorityInterest",
+            "annualTotalEquityGrossMinorityInterest", "annualTangibleBookValue",
+        )
+        val period2 = System.currentTimeMillis() / 1000
+        val fundiesUrl = "https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/LHV1T.TL" +
+            "?symbol=LHV1T.TL" +
+            "&type=${fields.joinToString(",")}" +
+            "&period1=1483228800&period2=$period2"
         val fundiesReq = HttpRequest.newBuilder(URI.create(fundiesUrl))
-            .header("Cookie", cookie)
-            .header(
-                "User-Agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-            )
+            .header("User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
             .GET().build()
 
         val fundiesRes = http.send(fundiesReq)
