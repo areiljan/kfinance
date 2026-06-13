@@ -32,10 +32,13 @@ internal class DefaultYahooSession(private val http: KFinanceHttpClient) : Yahoo
     }
 
     override suspend fun ensureValid() {
-        if (Instant.now().isBefore(expiresAt)) return
         mutex.withLock {
             if (isSessionValid()) return
-            refresh()
+            var attempts = 0
+            while (!isSessionValid() && attempts < 3) {
+                attempts++
+                refresh()
+            }
         }
     }
 
