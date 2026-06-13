@@ -3,6 +3,8 @@ package kfinance.session
 import kfinance.error.KFinanceException
 import kfinance.net.KFinanceHttpClient
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.net.URI
 import java.net.http.HttpRequest
@@ -20,6 +22,7 @@ internal class DefaultYahooSession(private val http: KFinanceHttpClient) : Yahoo
     private var cookie: String = ""
     private var crumb: String = ""
     private var expiresAt: Instant = Instant.EPOCH
+    private val mutex = Mutex()
 
     companion object {
         private const val USER_AGENT =
@@ -30,7 +33,14 @@ internal class DefaultYahooSession(private val http: KFinanceHttpClient) : Yahoo
 
     override suspend fun ensureValid() {
         if (Instant.now().isBefore(expiresAt)) return
-        refresh()
+        mutex.withLock {
+            if (isSessionValid()) return
+            refresh()
+        }
+    }
+
+    private fun isSessionValid(): Boolean {
+        return cookie.isNotEmpty() && crumb.isNotEmpty() && Instant.now().isBefore(expiresAt)
     }
 
     private suspend fun refresh() = withContext(Dispatchers.IO) {
