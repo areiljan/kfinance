@@ -86,7 +86,7 @@ internal class FundamentalsClient(
 
             fun field(key: String, date: String) = fieldData["$prefix$key"]?.get(date)
 
-            val incomeEntries = allDates.mapNotNull { date ->
+            val incomeEntries = allDates.map { date ->
                 val endDate = LocalDate.parse(date).atStartOfDay(ZoneOffset.UTC).toEpochSecond()
                 IncomeEntry(
                     endDate = endDate,
@@ -96,7 +96,7 @@ internal class FundamentalsClient(
                     netIncome = field("NetIncome", date),
                 )
             }
-            val cashFlowEntries = allDates.mapNotNull { date ->
+            val cashFlowEntries = allDates.map { date ->
                 val endDate = LocalDate.parse(date).atStartOfDay(ZoneOffset.UTC).toEpochSecond()
                 CashFlowEntry(
                     endDate = endDate,
@@ -105,7 +105,7 @@ internal class FundamentalsClient(
                     netChangeInCash = field("ChangesInCash", date),
                 )
             }
-            val balanceSheetEntries = allDates.mapNotNull { date ->
+            val balanceSheetEntries = allDates.map { date ->
                 val endDate = LocalDate.parse(date).atStartOfDay(ZoneOffset.UTC).toEpochSecond()
                 BalanceSheetEntry(
                     endDate = endDate,
