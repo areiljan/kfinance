@@ -35,23 +35,30 @@ class DownloadFixturesTest : FunSpec({
         val quoteUrl = "https://query1.finance.yahoo.com/v7/finance/quote?symbols=LHV1T.TL&crumb=$crumb"
         val quoteReq = HttpRequest.newBuilder(URI.create(quoteUrl))
             .header("Cookie", cookie)
-            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+            .header(
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            )
             .GET().build()
-        
+
         val quoteRes = http.send(quoteReq)
         File(fixturesDir, "quote_response.json").writeText(quoteRes.body())
         println("Wrote quote_response.json")
 
-        val fundiesUrl = "https://query1.finance.yahoo.com/v10/finance/quoteSummary/LHV1T.TL?modules=incomeStatementHistory,cashflowStatementHistory,balanceSheetHistory&crumb=$crumb"
+        val fundiesUrl =
+            "https://query1.finance.yahoo.com/v10/finance/quoteSummary/LHV1T.TL?modules=incomeStatementHistory,cashflowStatementHistory,balanceSheetHistory&crumb=$crumb"
         val fundiesReq = HttpRequest.newBuilder(URI.create(fundiesUrl))
             .header("Cookie", cookie)
-            .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+            .header(
+                "User-Agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+            )
             .GET().build()
-        
+
         val fundiesRes = http.send(fundiesReq)
         File(fixturesDir, "fundamentals_response.json").writeText(fundiesRes.body())
         println("Wrote fundamentals_response.json")
-        
+
         rawHttp.executor().ifPresent { (it as? java.util.concurrent.ExecutorService)?.shutdown() }
     }
 })

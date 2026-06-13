@@ -36,16 +36,16 @@ class FundamentalsClientTest : FunSpec({
 
         val client = FundamentalsClient(fakeHttpClient, fakeSession)
         val fin = client.fetch("LHV1T.TL", Period.ANNUAL)
-        
+
         fin.symbol shouldBe "LHV1T.TL"
         fin.period shouldBe Period.ANNUAL
-        
+
         fin.incomeStatement shouldNotBe null
         fin.incomeStatement?.entries?.isNotEmpty() shouldBe true
         val incomeEntry = fin.incomeStatement?.entries?.first()
         incomeEntry?.endDate shouldNotBe null
         incomeEntry?.totalRevenue shouldNotBe null
-        
+
         fin.balanceSheet shouldNotBe null
         fin.balanceSheet?.entries?.isNotEmpty() shouldBe true
         val balanceEntry = fin.balanceSheet?.entries?.first()

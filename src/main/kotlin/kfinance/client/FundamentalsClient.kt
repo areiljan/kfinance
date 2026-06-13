@@ -18,7 +18,8 @@ internal class FundamentalsClient(
 ) {
     companion object {
         private const val BASE_URL = "https://query1.finance.yahoo.com/v10/finance/quoteSummary"
-        private const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        private const val USER_AGENT =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         private val json = Json { ignoreUnknownKeys = true; isLenient = true }
     }
 
@@ -80,11 +81,15 @@ internal class FundamentalsClient(
             if (wrapper.quoteSummary.error != null) {
                 throw KFinanceException.ParseException("Yahoo returned an error: ${wrapper.quoteSummary.error}")
             }
-            val result = wrapper.quoteSummary.result?.firstOrNull() ?: return Financials(symbol, period, null, null, null)
+            val result =
+                wrapper.quoteSummary.result?.firstOrNull() ?: return Financials(symbol, period, null, null, null)
 
-            val incModule = if (period == Period.ANNUAL) result.incomeStatementHistory else result.incomeStatementHistoryQuarterly
-            val cfModule = if (period == Period.ANNUAL) result.cashflowStatementHistory else result.cashflowStatementHistoryQuarterly
-            val bsModule = if (period == Period.ANNUAL) result.balanceSheetHistory else result.balanceSheetHistoryQuarterly
+            val incModule =
+                if (period == Period.ANNUAL) result.incomeStatementHistory else result.incomeStatementHistoryQuarterly
+            val cfModule =
+                if (period == Period.ANNUAL) result.cashflowStatementHistory else result.cashflowStatementHistoryQuarterly
+            val bsModule =
+                if (period == Period.ANNUAL) result.balanceSheetHistory else result.balanceSheetHistoryQuarterly
 
             val incomeStatement = incModule?.incomeStatementHistory?.let { list ->
                 IncomeStatement(list.mapNotNull { parseIncomeEntry(it) })
@@ -123,7 +128,8 @@ internal class FundamentalsClient(
         val endDate = extractRawLong(obj["endDate"]) ?: return null
         return CashFlowEntry(
             endDate = endDate,
-            operatingCashFlow = extractRawDouble(obj["totalCashFromOperatingActivities"]) ?: extractRawDouble(obj["operatingCashflow"]),
+            operatingCashFlow = extractRawDouble(obj["totalCashFromOperatingActivities"])
+                ?: extractRawDouble(obj["operatingCashflow"]),
             capitalExpenditures = extractRawDouble(obj["capitalExpenditures"]),
             netChangeInCash = extractRawDouble(obj["changeInCash"])
         )

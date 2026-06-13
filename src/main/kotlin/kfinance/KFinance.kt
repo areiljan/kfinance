@@ -20,7 +20,8 @@ public class KFinance : Closeable {
         .connectTimeout(Duration.ofSeconds(10))
         .build()
 
-    private val http = KFinanceHttpClient { javaHttpClient.send(it, java.net.http.HttpResponse.BodyHandlers.ofString()) }
+    private val http =
+        KFinanceHttpClient { javaHttpClient.send(it, java.net.http.HttpResponse.BodyHandlers.ofString()) }
     private val session = DefaultYahooSession(http)
     private val quotes = QuoteClient(http, session)
     private val fundies = FundamentalsClient(http, session)

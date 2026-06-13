@@ -22,7 +22,8 @@ internal class DefaultYahooSession(private val http: KFinanceHttpClient) : Yahoo
     private var expiresAt: Instant = Instant.EPOCH
 
     companion object {
-        private const val USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        private const val USER_AGENT =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         private const val COOKIE_URL = "https://fc.yahoo.com"
         private const val CRUMB_URL = "https://query1.finance.yahoo.com/v1/test/getcrumb"
     }
@@ -40,11 +41,11 @@ internal class DefaultYahooSession(private val http: KFinanceHttpClient) : Yahoo
                 .build()
 
             val cookieRes = http.send(cookieReq)
-            
+
             val setCookieHeaders = cookieRes.headers().allValues("Set-Cookie")
             val validCookie = setCookieHeaders.firstOrNull { it.startsWith("A3=") || it.startsWith("B=") }
                 ?: throw KFinanceException.SessionException("Could not find A3/B cookie in Set-Cookie headers from fc.yahoo.com")
-            
+
             cookie = validCookie.substringBefore(";")
 
             val crumbReq = HttpRequest.newBuilder(URI.create(CRUMB_URL))
@@ -52,12 +53,12 @@ internal class DefaultYahooSession(private val http: KFinanceHttpClient) : Yahoo
                 .header("Cookie", cookie)
                 .GET()
                 .build()
-                
+
             val crumbRes = http.send(crumbReq)
             if (crumbRes.statusCode() !in 200..299) {
                 throw KFinanceException.SessionException("Failed to fetch crumb, status: ${crumbRes.statusCode()}")
             }
-            
+
             crumb = crumbRes.body().trim()
             if (crumb.isEmpty()) {
                 throw KFinanceException.SessionException("Crumb is empty")
